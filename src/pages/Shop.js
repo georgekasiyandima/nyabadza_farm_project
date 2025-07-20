@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
+import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, Box } from '@mui/material';
 
 const products = [
   { id: 1, name: "Free-Range Chicken", price: 5, image: "/chickens.jpg", description: "Fresh, organic broiler chickens." },
@@ -17,27 +17,39 @@ const products = [
 
 function Shop() {
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Our Products</Typography>
-      <Grid container spacing={3}>
+    <Container sx={{ py: 4 }}>
+      <Typography variant="h4" gutterBottom align="center">Our Products</Typography>
+      <Grid container spacing={4}>
         {products.map((product) => (
           <Grid item xs={12} sm={6} md={4} key={product.id}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="140"
-                image={product.image}
-                alt={product.name}
-              />
-              <CardContent>
-                <Typography variant="h6">{product.name}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                  ${product.price.toFixed(2)}
-                </Typography>
-                <Typography variant="body2">{product.description}</Typography>
-                <Button variant="contained" color="primary">Add to Cart</Button>
-              </CardContent>
-            </Card>
+            <Box sx={{
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              '&:hover': {
+                transform: 'translateY(-8px) scale(1.03)',
+                boxShadow: 6,
+              },
+            }}>
+              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3 }}>
+                <CardMedia
+                  component="img"
+                  image={product.image}
+                  alt={product.name}
+                  sx={{
+                    aspectRatio: '4/3',
+                    objectFit: 'cover',
+                    height: 200,
+                  }}
+                />
+                <CardContent sx={{ flexGrow: 1 }}>
+                  <Typography variant="h6" gutterBottom>{product.name}</Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    ${product.price.toFixed(2)}
+                  </Typography>
+                  <Typography variant="body2" sx={{ mb: 2 }}>{product.description}</Typography>
+                  <Button variant="contained" color="primary" fullWidth>Add to Cart</Button>
+                </CardContent>
+              </Card>
+            </Box>
           </Grid>
         ))}
       </Grid>
