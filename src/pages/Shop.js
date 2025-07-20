@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, Box } from '@mui/material';
+import { useCart } from '../components/CartContext';
 
 const products = [
   { id: 1, name: "Free-Range Chicken", price: 5, image: "/chickens.jpg", description: "Fresh, organic broiler chickens." },
@@ -16,6 +17,8 @@ const products = [
 ];
 
 function Shop() {
+  const { addToCart } = useCart();
+
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom align="center">Our Products</Typography>
@@ -46,7 +49,9 @@ function Shop() {
                     ${product.price.toFixed(2)}
                   </Typography>
                   <Typography variant="body2" sx={{ mb: 2 }}>{product.description}</Typography>
-                  <Button variant="contained" color="primary" fullWidth>Add to Cart</Button>
+                  <Button variant="contained" color="primary" fullWidth onClick={() => addToCart(product)}>
+                    Add to Cart
+                  </Button>
                 </CardContent>
               </Card>
             </Box>
