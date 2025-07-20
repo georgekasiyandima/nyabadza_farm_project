@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, IconButton, Box, TextField } from '@mui/material';
+import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, IconButton, Box, TextField, Divider, Stack } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCart } from '../components/CartContext';
 
@@ -12,7 +12,10 @@ function Cart() {
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom align="center">Your Cart</Typography>
       {items.length === 0 ? (
-        <Typography variant="body1" align="center">Your cart is empty.</Typography>
+        <Box sx={{ textAlign: 'center', mt: 6 }}>
+          <Typography variant="body1" color="text.secondary" gutterBottom>Your cart is empty.</Typography>
+          <Button variant="contained" color="primary" href="/shop">Go to Shop</Button>
+        </Box>
       ) : (
         <>
           <Grid container spacing={3}>
@@ -23,11 +26,16 @@ function Cart() {
                     component="img"
                     image={product.image}
                     alt={product.name}
-                    sx={{ width: 100, height: 100, objectFit: 'cover', mr: 2 }}
+                    sx={{ width: 100, height: 100, objectFit: 'cover', mr: 2, borderRadius: 2 }}
                   />
                   <CardContent sx={{ flex: 1 }}>
-                    <Typography variant="h6">{product.name}</Typography>
-                    <Typography variant="body2" color="text.secondary">${product.price.toFixed(2)}</Typography>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <Typography variant="h6">{product.name}</Typography>
+                      <IconButton color="error" onClick={() => removeFromCart(product.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Stack>
+                    <Typography variant="body2" color="text.secondary">Unit Price: ${product.price.toFixed(2)}</Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
                       <TextField
                         type="number"
@@ -38,18 +46,19 @@ function Cart() {
                         onChange={e => updateQuantity(product.id, Math.max(1, Number(e.target.value)))}
                         sx={{ mr: 2 }}
                       />
-                      <IconButton color="error" onClick={() => removeFromCart(product.id)}>
-                        <DeleteIcon />
-                      </IconButton>
+                      <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                        Subtotal: ${(product.price * quantity).toFixed(2)}
+                      </Typography>
                     </Box>
                   </CardContent>
                 </Card>
               </Grid>
             ))}
           </Grid>
-          <Box sx={{ mt: 4, textAlign: 'right' }}>
-            <Typography variant="h6">Total: ${total.toFixed(2)}</Typography>
-            <Button variant="contained" color="primary" sx={{ mt: 2 }}>Checkout</Button>
+          <Divider sx={{ my: 4 }} />
+          <Box sx={{ mt: 2, textAlign: { xs: 'center', md: 'right' } }}>
+            <Typography variant="h6" sx={{ mb: 1 }}>Total: ${total.toFixed(2)}</Typography>
+            <Button variant="contained" color="primary" size="large">Checkout</Button>
           </Box>
         </>
       )}

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, Box } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, Box, Snackbar, Alert, Stack } from '@mui/material';
 import { useCart } from '../components/CartContext';
 
 const products = [
@@ -17,47 +17,91 @@ const products = [
 ];
 
 function Shop() {
-  const { addToCart } = useCart();
+  const { addToCart, items } = useCart();
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMsg, setSnackbarMsg] = useState('');
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setSnackbarMsg(`${product.name} added to cart!`);
+    setSnackbarOpen(true);
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') return;
+    setSnackbarOpen(false);
+  };
+
+  const getQuantity = (productId) => {
+    const item = items.find(i => i.product.id === productId);
+    return item ? item.quantity : 0;
+  };
 
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom align="center">Our Products</Typography>
-      <Grid container spacing={4}>
-        {products.map((product) => (
-          <Grid item xs={12} sm={6} md={4} key={product.id}>
-            <Box sx={{
-              transition: 'transform 0.2s, box-shadow 0.2s',
-              '&:hover': {
-                transform: 'translateY(-8px) scale(1.03)',
-                boxShadow: 6,
-              },
-            }}>
-              <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3 }}>
-                <CardMedia
-                  component="img"
-                  image={product.image}
-                  alt={product.name}
-                  sx={{
-                    aspectRatio: '4/3',
-                    objectFit: 'cover',
-                    height: 200,
-                  }}
-                />
-                <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography variant="h6" gutterBottom>{product.name}</Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    ${product.price.toFixed(2)}
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 2 }}>{product.description}</Typography>
-                  <Button variant="contained" color="primary" fullWidth onClick={() => addToCart(product)}>
-                    Add to Cart
-                  </Button>
-                </CardContent>
-              </Card>
-            </Box>
-          </Grid>
-        ))}
+      <Grid container spacing={{ xs: 2, sm: 3, md: 4 }}>
+        {products.map((product) => {
+          const quantity = getQuantity(product.id);
+          return (
+            <Grid item xs={12} sm={6} md={4} key={product.id}>
+              <Box sx={{
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                '&:hover': {
+                  transform: 'translateY(-8px) scale(1.03)',
+                  boxShadow: 6,
+                },
+              }}>
+                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3 }}>
+                  <CardMedia
+                    component="img"
+                    image={product.image}
+                    alt={product.name}
+                    sx={{
+                      aspectRatio: '4/3',
+                      objectFit: 'cover',
+                      height: 200,
+                    }}
+                  />
+                  <CardContent sx={{ flexGrow: 1 }}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <Typography variant="h6" gutterBottom>{product.name}</Typography>
+                      {quantity > 0 && (
+                        <Typography variant="caption" color="primary" sx={{ ml: 1 }}>
+                          In Cart: {quantity}
+                        </Typography>
+                      )}
+                    </Stack>
+                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                      ${product.price.toFixed(2)}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 2 }}>{product.description}</Typography>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      onClick={() => handleAddToCart(product)}
+                      disabled={quantity > 0 && quantity >= 10}
+                    >
+                      {quantity > 0 ? 'Add More' : 'Add to Cart'}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Grid>
+          );
+        })}
       </Grid>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          {snackbarMsg}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
