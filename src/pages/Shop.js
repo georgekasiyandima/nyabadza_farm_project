@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, Box, Snackbar, Alert, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useCart } from '../components/CartContext';
 
 const products = [
@@ -53,19 +54,21 @@ function Shop() {
                 },
               }}>
                 <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3 }}>
-                  <CardMedia
-                    component="img"
-                    image={product.image}
-                    alt={product.name}
-                    sx={{
-                      aspectRatio: '4/3',
-                      objectFit: 'cover',
-                      height: 200,
-                    }}
-                  />
+                  <Box component={Link} to={`/product/${product.id}`} sx={{ textDecoration: 'none', color: 'inherit' }}>
+                    <CardMedia
+                      component="img"
+                      image={product.image}
+                      alt={product.name}
+                      sx={{
+                        aspectRatio: '4/3',
+                        objectFit: 'cover',
+                        height: 200,
+                      }}
+                    />
+                  </Box>
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                      <Typography variant="h6" gutterBottom>{product.name}</Typography>
+                      <Typography variant="h6" gutterBottom component={Link} to={`/product/${product.id}`} sx={{ textDecoration: 'none', color: 'inherit' }}>{product.name}</Typography>
                       {quantity > 0 && (
                         <Typography variant="caption" color="primary" sx={{ ml: 1 }}>
                           In Cart: {quantity}

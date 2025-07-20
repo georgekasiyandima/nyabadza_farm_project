@@ -7,6 +7,7 @@ import Showcase from './pages/Showcase';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
+import ProductDetails from './pages/ProductDetails';
 import { CartProvider } from './components/CartContext';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </BrowserRouter>
