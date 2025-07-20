@@ -2,9 +2,9 @@ import React from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardMedia, Button } from '@mui/material';
 
 const products = [
-  { id: 1, name: "Free-Range Chicken", price: 5, image: "https://via.placeholder.com/150", description: "Fresh, organic broiler chickens." },
-  { id: 2, name: "Farm-Fresh Eggs", price: 3, image: "https://via.placeholder.com/150", description: "Dozen free-range eggs." },
-  { id: 3, name: "Organic Tomatoes", price: 0.8, image: "https://via.placeholder.com/150", description: "Juicy, greenhouse-grown tomatoes." },
+  { id: 1, name: "Free-Range Chicken", price: 5, image: "/chickens.jpg", description: "Fresh, organic broiler chickens." },
+  { id: 2, name: "Farm-Fresh Eggs", price: 3, image: "/feggs.jpg", description: "Dozen free-range eggs." },
+  { id: 3, name: "Organic Tomatoes", price: 0.8, image: "/tomato.jpg", description: "Juicy, greenhouse-grown tomatoes." },
 ];
 
 function Shop() {
