@@ -5,12 +5,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Badge from '@mui/material/Badge';
 import { useCart } from './CartContext';
+import { useWishlist } from './WishlistContext';
 
 function Navbar() {
   const { items } = useCart();
+  const { items: wishlistItems } = useWishlist();
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
+  const wishlistCount = wishlistItems.length;
 
   return (
     <AppBar position="static">
@@ -23,6 +27,11 @@ function Navbar() {
         <Button color="inherit" component={Link} to="/showcase">Showcase</Button>
         <Button color="inherit" component={Link} to="/blog">Blog</Button>
         <Button color="inherit" component={Link} to="/contact">Contact</Button>
+        <Button color="inherit" component={Link} to="/wishlist" sx={{ ml: 2 }}>
+          <Badge badgeContent={wishlistCount} color="secondary">
+            <FavoriteIcon />
+          </Badge>
+        </Button>
         <Button color="inherit" component={Link} to="/cart" sx={{ ml: 2 }}>
           <Badge badgeContent={cartCount} color="secondary">
             <ShoppingCartIcon />
