@@ -61,13 +61,8 @@ function Shop() {
     return item ? item.quantity : 0;
   };
 
-  const isInWishlist = (productId) => {
-    return wishlistItems.find(i => i.product.id === productId);
-  };
-
-  const isInCompare = (productId) => {
-    return compareItems.find(i => i.product.id === productId);
-  };
+  const isInWishlist = (productId) => wishlistItems.find(i => i.product.id === productId);
+  const isInCompare = (productId) => compareItems.find(i => i.product.id === productId);
 
   return (
     <Container sx={{ py: 4 }}>
@@ -80,76 +75,86 @@ function Shop() {
           return (
             <Grid item xs={12} sm={6} md={4} key={product.id}>
               <Box sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
                 transition: 'transform 0.2s, box-shadow 0.2s',
                 '&:hover': {
                   transform: 'translateY(-8px) scale(1.03)',
                   boxShadow: 6,
                 },
               }}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3, position: 'relative' }}>
+                <Card sx={{
+                  height: 420,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  flex: 1,
+                }}>
                   <Box component={Link} to={`/product/${product.id}`} sx={{ textDecoration: 'none', color: 'inherit' }}>
                     <CardMedia
                       component="img"
                       image={product.image}
                       alt={product.name}
                       sx={{
-                        aspectRatio: '4/3',
+                        height: 180,
+                        width: '100%',
                         objectFit: 'cover',
-                        height: 200,
+                        transition: '0.2s',
                       }}
                     />
                   </Box>
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                      <Typography variant="h6" gutterBottom component={Link} to={`/product/${product.id}`} sx={{ textDecoration: 'none', color: 'inherit' }}>{product.name}</Typography>
-                      <Tooltip title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}>
-                        <IconButton
-                          color={inWishlist ? "error" : "default"}
-                          onClick={() => handleWishlistToggle(product)}
-                          size="small"
-                        >
-                          {inWishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title={inCompare ? "Remove from Comparison" : "Add to Comparison"}>
-                        <IconButton
-                          color={inCompare ? "primary" : "default"}
-                          onClick={() => {
-                            if (inCompare) {
-                              removeFromCompare(product.id);
-                              setSnackbarMsg(`${product.name} removed from comparison`);
-                              setSnackbarSeverity('info');
-                            } else if (compareItems.length < 3) {
-                              addToCompare(product);
-                              setSnackbarMsg(`${product.name} added to comparison!`);
-                              setSnackbarSeverity('success');
-                            } else {
-                              setSnackbarMsg('You can only compare up to 3 products.');
-                              setSnackbarSeverity('warning');
-                            }
-                            setSnackbarOpen(true);
-                          }}
-                          size="small"
-                        >
-                          <CompareArrowsIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Go to Compare Page">
-                        <IconButton component={Link} to="/compare" size="small">
-                          <CompareArrowsIcon />
-                        </IconButton>
-                      </Tooltip>
+                  <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2 }}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
+                      <Typography variant="h6" gutterBottom component={Link} to={`/product/${product.id}`} sx={{ textDecoration: 'none', color: 'inherit', fontWeight: 600 }}>{product.name}</Typography>
+                      <Stack direction="row" spacing={1}>
+                        <Tooltip title={inWishlist ? "Remove from Wishlist" : "Add to Wishlist"}>
+                          <IconButton
+                            color={inWishlist ? "error" : "default"}
+                            onClick={() => handleWishlistToggle(product)}
+                            size="small"
+                          >
+                            {inWishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip title={inCompare ? "Remove from Comparison" : "Add to Comparison"}>
+                          <IconButton
+                            color={inCompare ? "primary" : "default"}
+                            onClick={() => {
+                              if (inCompare) {
+                                removeFromCompare(product.id);
+                                setSnackbarMsg(`${product.name} removed from comparison`);
+                                setSnackbarSeverity('info');
+                              } else if (compareItems.length < 3) {
+                                addToCompare(product);
+                                setSnackbarMsg(`${product.name} added to comparison!`);
+                                setSnackbarSeverity('success');
+                              } else {
+                                setSnackbarMsg('You can only compare up to 3 products.');
+                                setSnackbarSeverity('warning');
+                              }
+                              setSnackbarOpen(true);
+                            }}
+                            size="small"
+                          >
+                            <CompareArrowsIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </Stack>
                     </Stack>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography variant="body2" color="text.secondary" gutterBottom sx={{ fontWeight: 500, fontSize: 16 }}>
                       ${product.price.toFixed(2)}
                     </Typography>
-                    <Typography variant="body2" sx={{ mb: 2 }}>{product.description}</Typography>
+                    <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary', minHeight: 40 }}>{product.description}</Typography>
                     <Button
                       variant="contained"
                       color="primary"
                       fullWidth
                       onClick={() => handleAddToCart(product)}
                       disabled={quantity > 0 && quantity >= 10}
+                      sx={{ mt: 'auto', fontWeight: 600, letterSpacing: 1 }}
                     >
                       {quantity > 0 ? 'Add More' : 'Add to Cart'}
                     </Button>
