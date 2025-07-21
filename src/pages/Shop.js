@@ -3,8 +3,10 @@ import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, Box,
 import { Link } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import { useCart } from '../components/CartContext';
 import { useWishlist } from '../components/WishlistContext';
+import { useCompare } from '../components/CompareContext';
 
 const products = [
   { id: 1, name: "Free-Range Chicken", price: 6, image: "/chickens.jpg", description: "Fresh, organic broiler chickens." },
@@ -23,6 +25,7 @@ const products = [
 function Shop() {
   const { addToCart, items } = useCart();
   const { addToWishlist, removeFromWishlist, items: wishlistItems } = useWishlist();
+  const { addToCompare, removeFromCompare, items: compareItems } = useCompare();
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
@@ -62,6 +65,10 @@ function Shop() {
     return wishlistItems.find(i => i.product.id === productId);
   };
 
+  const isInCompare = (productId) => {
+    return compareItems.find(i => i.product.id === productId);
+  };
+
   return (
     <Container sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom align="center">Our Products</Typography>
@@ -69,6 +76,7 @@ function Shop() {
         {products.map((product) => {
           const quantity = getQuantity(product.id);
           const inWishlist = isInWishlist(product.id);
+          const inCompare = isInCompare(product.id);
           return (
             <Grid item xs={12} sm={6} md={4} key={product.id}>
               <Box sx={{
@@ -101,6 +109,34 @@ function Shop() {
                           size="small"
                         >
                           {inWishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title={inCompare ? "Remove from Comparison" : "Add to Comparison"}>
+                        <IconButton
+                          color={inCompare ? "primary" : "default"}
+                          onClick={() => {
+                            if (inCompare) {
+                              removeFromCompare(product.id);
+                              setSnackbarMsg(`${product.name} removed from comparison`);
+                              setSnackbarSeverity('info');
+                            } else if (compareItems.length < 3) {
+                              addToCompare(product);
+                              setSnackbarMsg(`${product.name} added to comparison!`);
+                              setSnackbarSeverity('success');
+                            } else {
+                              setSnackbarMsg('You can only compare up to 3 products.');
+                              setSnackbarSeverity('warning');
+                            }
+                            setSnackbarOpen(true);
+                          }}
+                          size="small"
+                        >
+                          <CompareArrowsIcon />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Go to Compare Page">
+                        <IconButton component={Link} to="/compare" size="small">
+                          <CompareArrowsIcon />
                         </IconButton>
                       </Tooltip>
                     </Stack>

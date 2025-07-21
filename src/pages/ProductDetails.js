@@ -7,8 +7,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { useCart } from '../components/CartContext';
 import { useWishlist } from '../components/WishlistContext';
+import { useCompare } from '../components/CompareContext';
 
 // Enhanced product data with gallery, category, stock, location, and reviews
 const products = [
@@ -74,9 +78,11 @@ function ProductDetails() {
   const navigate = useNavigate();
   const { addToCart, items } = useCart();
   const { addToWishlist, removeFromWishlist, items: wishlistItems } = useWishlist();
+  const { addToCompare, removeFromCompare, items: compareItems } = useCompare();
   const product = products.find(p => p.id === Number(id));
   const inCart = items.find(i => i.product.id === product?.id)?.quantity || 0;
   const inWishlist = wishlistItems.find(i => i.product.id === product?.id);
+  const inCompare = compareItems.find(i => i.product.id === product?.id);
 
   // Gallery state
   const [mainImg, setMainImg] = useState(product?.gallery?.[0] || product?.image);
@@ -134,10 +140,19 @@ function ProductDetails() {
     }
   };
 
-  const handleCompare = () => {
-    // For now, just show a message. In a real app, you'd add to comparison list
-    setSnackbarMsg('Product comparison feature coming soon!');
-    setSnackbarSeverity('info');
+  const handleCompareToggle = () => {
+    if (inCompare) {
+      removeFromCompare(product.id);
+      setSnackbarMsg(`${product.name} removed from comparison`);
+      setSnackbarSeverity('info');
+    } else if (compareItems.length < 3) {
+      addToCompare(product);
+      setSnackbarMsg(`${product.name} added to comparison!`);
+      setSnackbarSeverity('success');
+    } else {
+      setSnackbarMsg('You can only compare up to 3 products.');
+      setSnackbarSeverity('warning');
+    }
     setSnackbarOpen(true);
   };
 
@@ -163,6 +178,20 @@ function ProductDetails() {
     setLocalReviews([{ ...review }, ...localReviews]);
     setReview({ user: '', rating: 0, comment: '' });
     setReviewError('');
+  };
+
+  const handleSocialShare = (platform) => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`Check out this ${product.name} from Nyabadza Farm!`);
+    let shareUrl = '';
+    if (platform === 'facebook') {
+      shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+    } else if (platform === 'twitter') {
+      shareUrl = `https://twitter.com/intent/tweet?url=${url}&text=${text}`;
+    } else if (platform === 'whatsapp') {
+      shareUrl = `https://wa.me/?text=${text}%20${url}`;
+    }
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
   };
 
   // Get related products (same category, excluding current product)
@@ -247,9 +276,29 @@ function ProductDetails() {
                     <ShareIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Compare Product">
-                  <IconButton onClick={handleCompare}>
+                <Tooltip title={inCompare ? "Remove from Comparison" : "Add to Comparison"}>
+                  <IconButton onClick={handleCompareToggle} color={inCompare ? "primary" : "default"}>
                     <CompareArrowsIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Go to Compare Page">
+                  <IconButton component={Link} to="/compare">
+                    <CompareArrowsIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Share on Facebook">
+                  <IconButton onClick={() => handleSocialShare('facebook')} color="primary">
+                    <FacebookIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Share on Twitter">
+                  <IconButton onClick={() => handleSocialShare('twitter')} color="primary">
+                    <TwitterIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Share on WhatsApp">
+                  <IconButton onClick={() => handleSocialShare('whatsapp')} color="success">
+                    <WhatsAppIcon />
                   </IconButton>
                 </Tooltip>
               </Stack>
@@ -379,6 +428,29 @@ function ProductDetails() {
           </Grid>
         </Box>
       )}
+
+      {/* Recommended Products */}
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h5" gutterBottom>Recommended Products</Typography>
+        <Grid container spacing={2}>
+          {products.filter(p => p.id !== product.id).slice(0, 3).map((rec) => (
+            <Grid item xs={12} sm={6} md={4} key={rec.id}>
+              <Card sx={{ cursor: 'pointer' }} onClick={() => navigate(`/product/${rec.id}`)}>
+                <CardMedia
+                  component="img"
+                  image={rec.image}
+                  alt={rec.name}
+                  sx={{ height: 140, objectFit: 'cover' }}
+                />
+                <CardContent>
+                  <Typography variant="h6">{rec.name}</Typography>
+                  <Typography variant="body2" color="text.secondary">${rec.price.toFixed(2)}</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </Container>
   );
 }
