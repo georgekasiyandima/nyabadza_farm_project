@@ -11,6 +11,9 @@ import Wishlist from './pages/Wishlist';
 import Compare from './pages/Compare';
 import ProductDetails from './pages/ProductDetails';
 import FarmInfo from './pages/FarmInfo';
+import Checkout from './pages/Checkout';        // ✅ Added checkout
+import Confirmation from './pages/Confirmation'; // ✅ Added confirmation
+import Orders from './pages/Orders';
 import { CartProvider } from './components/CartContext';
 import { WishlistProvider } from './components/WishlistContext';
 import { CompareProvider } from './components/CompareContext';
@@ -23,17 +26,25 @@ function App() {
           <BrowserRouter>
             <Navbar />
             <Routes>
+              {/* Main Pages */}
+              <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />} />
               <Route path="/shop" element={<Shop />} />
               <Route path="/showcase" element={<Showcase />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/farm-info" element={<FarmInfo />} />
+
+              {/* Product + Shopping Flow */}
+              <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />         {/* ✅ checkout */}
+              <Route path="/confirmation" element={<Confirmation />} /> {/* ✅ confirmation */}
+              <Route path="/orders" element={<Orders />} />
+
+              {/* User Actions */}
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/compare" element={<Compare />} />
-              <Route path="/product/:id" element={<ProductDetails />} />
-              <Route path="/farm-info" element={<FarmInfo />} />
-              <Route path="/" element={<Home />} />
             </Routes>
           </BrowserRouter>
         </CartProvider>
