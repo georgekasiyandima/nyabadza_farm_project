@@ -17,6 +17,7 @@ import Orders from './pages/Orders';
 import { CartProvider } from './components/CartContext';
 import { WishlistProvider } from './components/WishlistContext';
 import { CompareProvider } from './components/CompareContext';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/compare" element={<Compare />} />
             </Routes>
+            <Footer />
           </BrowserRouter>
         </CartProvider>
       </WishlistProvider>

@@ -23,10 +23,11 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useCart } from '../components/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Cart() {
   const { items, removeFromCart, updateQuantity } = useCart();
+  const navigate = useNavigate();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
@@ -83,7 +84,16 @@ function Cart() {
   };
 
   return (
-    <Container sx={{ py: 5 }}>
+    <Container sx={{ py: 4 }}>
+      {/* Back to Home Button */}
+      <Button
+        variant="text"
+        color="primary"
+        onClick={() => navigate('/')}
+        sx={{ mb: 2, fontWeight: 600, textTransform: 'none', fontSize: 16 }}
+      >
+        ← Back to Home
+      </Button>
       <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 700 }}>
         Your Cart
       </Typography>

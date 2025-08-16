@@ -21,17 +21,53 @@ function Navbar() {
   const compareCount = compareItems.length;
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1 }}>
-          Nyabadza Farm
+    <AppBar
+      position="sticky"
+      elevation={4}
+      sx={{
+        background: 'rgba(255,255,255,0.85)',
+        backdropFilter: 'blur(8px)',
+        boxShadow: '0 2px 12px 0 rgba(31, 38, 135, 0.08)',
+        color: 'primary.main',
+      }}
+    >
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: 72 }}>
+        <Typography
+          variant="h4"
+          component={Link}
+          to="/"
+          sx={{
+            flexGrow: 1,
+            fontWeight: 900,
+            color: 'primary.main',
+            textDecoration: 'none',
+            letterSpacing: 1,
+            fontSize: { xs: 24, sm: 32 },
+            mr: 4,
+            transition: 'color 0.2s',
+            '&:hover': { color: 'secondary.main' },
+          }}
+        >
+          Village12Farm
         </Typography>
-        <Button color="inherit" component={Link} to="/home">Home</Button>
-        <Button color="inherit" component={Link} to="/shop">Shop</Button>
-        <Button color="inherit" component={Link} to="/showcase">Showcase</Button>
-        <Button color="inherit" component={Link} to="/blog">Blog</Button>
-        <Button color="inherit" component={Link} to="/contact">Contact</Button>
-        <Button color="inherit" component={Link} to="/farm-info">Farm Info</Button>
+        <Button color="inherit" component={Link} to="/home" sx={{ fontWeight: 600 }}>
+          Home
+        </Button>
+        <Button color="inherit" component={Link} to="/shop" sx={{ fontWeight: 600 }}>
+          Shop
+        </Button>
+        <Button color="inherit" component={Link} to="/showcase" sx={{ fontWeight: 600 }}>
+          Showcase
+        </Button>
+        <Button color="inherit" component={Link} to="/blog" sx={{ fontWeight: 600 }}>
+          Blog
+        </Button>
+        <Button color="inherit" component={Link} to="/contact" sx={{ fontWeight: 600 }}>
+          Contact
+        </Button>
+        <Button color="inherit" component={Link} to="/farm-info" sx={{ fontWeight: 600 }}>
+          Farm Info
+        </Button>
         <Button color="inherit" component={Link} to="/wishlist" sx={{ ml: 2 }}>
           <Badge badgeContent={wishlistCount} color="secondary">
             <FavoriteIcon />

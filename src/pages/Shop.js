@@ -19,7 +19,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
@@ -59,6 +59,7 @@ function Shop() {
   const [activeCategory, setActiveCategory] = useState('All');
   const [quickViewOpen, setQuickViewOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const navigate = useNavigate();
 
   const handleAddToCart = (product) => {
     addToCart(product);
@@ -129,6 +130,15 @@ function Shop() {
 
   return (
     <Container sx={{ py: 5 }}>
+      {/* Back to Home Button */}
+      <Button
+        variant="text"
+        color="primary"
+        onClick={() => navigate('/')}
+        sx={{ mb: 2, fontWeight: 600, textTransform: 'none', fontSize: 16 }}
+      >
+        ← Back to Home
+      </Button>
       <Typography variant="h4" gutterBottom align="center" fontWeight={700}>
         Our Products
       </Typography>
