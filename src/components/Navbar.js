@@ -68,6 +68,12 @@ function Navbar() {
         <Button color="inherit" component={Link} to="/farm-info" sx={{ fontWeight: 600 }}>
           Farm Info
         </Button>
+        <Button color="inherit" component={Link} to="/farm-profile" sx={{ fontWeight: 600 }}>
+          Farm Profile
+        </Button>
+        <Button color="inherit" component={Link} to="/policy" sx={{ fontWeight: 600 }}>
+          Policies
+        </Button>
         <Button color="inherit" component={Link} to="/wishlist" sx={{ ml: 2 }}>
           <Badge badgeContent={wishlistCount} color="secondary">
             <FavoriteIcon />

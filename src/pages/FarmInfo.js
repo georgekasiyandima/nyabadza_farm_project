@@ -31,12 +31,14 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot } from '@mui/lab';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import BackToTop from '../components/BackToTop';
+import PlaceIcon from '@mui/icons-material/Place';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
 const farmInfo = {
   name: 'Village12Farm',
@@ -98,12 +100,6 @@ const farmInfo = {
 };
 
 const farmCoordinates = [farmInfo.coordinates.lat, farmInfo.coordinates.lng];
-const farmIcon = new L.Icon({
-  iconUrl: '/farm-marker.png',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-  popupAnchor: [0, -40],
-});
 
 // Seasonal calendar data for crops
 const calendarData = [
@@ -141,16 +137,6 @@ function FarmInfo() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Animation variants
-  const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: 0.1 * i, duration: 0.7, type: 'spring', stiffness: 60 },
-    }),
-  };
-
   return (
     <Container sx={{ py: 5, position: 'relative' }}>
       {/* Back to Home Button */}
@@ -163,25 +149,23 @@ function FarmInfo() {
         ← Back to Home
       </Button>
       {/* Image Banner */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}>
-        <Box sx={{ width: '100%', mb: 4 }}>
-          <img
-            src={farmInfo.images[0]}
-            alt="Farm Banner"
-            style={{
-              width: '100%',
-              maxHeight: 340,
-              objectFit: 'cover',
-              borderRadius: 16,
-              boxShadow: '0 2px 16px #c3e0e5',
-            }}
-          />
-        </Box>
-      </motion.div>
+      <Box sx={{ width: '100%', mb: 4 }}>
+        <img
+          src={farmInfo.images[0]}
+          alt="Farm Banner"
+          style={{
+            width: '100%',
+            maxHeight: 340,
+            objectFit: 'cover',
+            borderRadius: 16,
+            boxShadow: '0 2px 16px #c3e0e5',
+          }}
+        />
+      </Box>
 
       {/* Hero + Gallery (remove second hero image) */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={2}>
-        <Paper elevation={4} sx={{ mb: 4, p: 3, borderRadius: 3 }}>
+      <Box sx={{ mb: 4 }}>
+        <Paper elevation={4} sx={{ p: 3, borderRadius: 3 }}>
           <Grid container spacing={4} alignItems="center">
             <Grid item xs={12} md={12}>
               <Typography variant="h3" fontWeight={800} color="primary.main" gutterBottom>
@@ -267,16 +251,16 @@ function FarmInfo() {
             </Dialog>
           </Box>
         </Paper>
-      </motion.div>
+      </Box>
 
       {/* Crop Highlights Section */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={3}>
-        <Paper elevation={2} sx={{ mb: 4, p: 3, borderRadius: 3 }}>
+      <Box sx={{ mb: 4 }}>
+        <Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 700, textAlign: 'center' }}>
             Crop Highlights
           </Typography>
           <Grid container spacing={3} justifyContent="center" alignItems="stretch">
-            {farmInfo.crops.map((crop, idx) => (
+            {farmInfo.crops.map((crop) => (
               <Grid item xs={12} sm={6} md={3} key={crop.name} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'stretch' }}>
                 <Card sx={{
                   p: 2,
@@ -304,11 +288,11 @@ function FarmInfo() {
             ))}
           </Grid>
         </Paper>
-      </motion.div>
+      </Box>
 
       {/* Seasonal Calendar Section */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={4}>
-        <Paper elevation={2} sx={{ mb: 4, p: 3, borderRadius: 3 }}>
+      <Box sx={{ mb: 4 }}>
+        <Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
             Seasonal Calendar
           </Typography>
@@ -327,16 +311,16 @@ function FarmInfo() {
             Planting and harvesting months for key crops.
           </Typography>
         </Paper>
-      </motion.div>
+      </Box>
 
       {/* Sustainability / Practices Section */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={5}>
-        <Paper elevation={2} sx={{ mb: 4, p: 3, borderRadius: 3 }}>
+      <Box sx={{ mb: 4 }}>
+        <Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
             Sustainability & Practices
           </Typography>
           <Grid container spacing={3}>
-            {farmInfo.sustainability.map((item, idx) => (
+            {farmInfo.sustainability.map((item) => (
               <Grid item xs={12} sm={6} md={4} key={item.title}>
                 <Card sx={{ p: 2, borderRadius: 3, textAlign: 'center', height: '100%', boxShadow: 2 }}>
                   <Box>{item.icon}</Box>
@@ -347,11 +331,11 @@ function FarmInfo() {
             ))}
           </Grid>
         </Paper>
-      </motion.div>
+      </Box>
 
       {/* Interactive Map Section */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={6}>
-        <Paper elevation={2} sx={{ mb: 4, p: 3, borderRadius: 3 }}>
+      <Box sx={{ mb: 4 }}>
+        <Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
             Farm Location
           </Typography>
@@ -367,7 +351,7 @@ function FarmInfo() {
                 url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
               />
               <ZoomControl position="topright" />
-              <Marker position={farmCoordinates} icon={farmIcon}>
+              <Marker position={farmCoordinates}>
                 <Popup>
                   Village12Farm<br />Near Rusape, Nyabadza village, Nyanga road<br />
                   <a
@@ -388,11 +372,11 @@ function FarmInfo() {
             </MapContainer>
           </Box>
         </Paper>
-      </motion.div>
+      </Box>
 
       {/* Farm History Timeline */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={7}>
-        <Paper elevation={2} sx={{ mb: 4, p: 3, borderRadius: 3 }}>
+      <Box sx={{ mb: 4 }}>
+        <Paper elevation={2} sx={{ p: 3, borderRadius: 3 }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
             Our Story
           </Typography>
@@ -411,10 +395,10 @@ function FarmInfo() {
             ))}
           </Timeline>
         </Paper>
-      </motion.div>
+      </Box>
 
       {/* CTA Section */}
-      <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={8}>
+      <Box sx={{ mb: 4 }}>
         <Paper elevation={3} sx={{ p: 4, borderRadius: 3, textAlign: 'center', background: 'linear-gradient(90deg, #e0f7fa 0%, #f5f7fa 100%)' }}>
           <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
             Visit Village12Farm or Shop Our Products
@@ -428,20 +412,22 @@ function FarmInfo() {
               target="_blank"
               rel="noopener noreferrer"
               sx={{ fontWeight: 700, px: 4, borderRadius: 2 }}
+              startIcon={<PlaceIcon />}
             >
-              📍 Visit Us
+              Visit Us
             </Button>
             <Button
               variant="outlined"
               size="large"
               onClick={() => navigate('/shop')}
               sx={{ fontWeight: 700, px: 4, borderRadius: 2 }}
+              startIcon={<ShoppingBagIcon />}
             >
-              🥕 Shop Farm Products
+              Shop Farm Products
             </Button>
           </Stack>
         </Paper>
-      </motion.div>
+      </Box>
       {/* Scroll to Top Button */}
       {showScroll && (
         <Button
@@ -467,6 +453,7 @@ function FarmInfo() {
           <ArrowUpwardIcon />
         </Button>
       )}
+      <BackToTop />
     </Container>
   );
 }

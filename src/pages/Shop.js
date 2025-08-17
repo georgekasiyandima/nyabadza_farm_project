@@ -30,6 +30,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useCart } from '../components/CartContext';
 import { useWishlist } from '../components/WishlistContext';
 import { useCompare } from '../components/CompareContext';
+import BackToTop from '../components/BackToTop';
 
 const products = [
   { id: 1, name: "Free-Range Chicken", price: 6, image: "/chickens.jpg", description: "Fresh, organic broiler chickens.", category: "Meat" },
@@ -362,6 +363,7 @@ function Shop() {
           {snackbarMsg}
         </Alert>
       </Snackbar>
+      <BackToTop />
     </Container>
   );
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Typography, Box, Button } from '@mui/material';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
 import { useNavigate } from 'react-router-dom';
+import BackToTop from '../components/BackToTop';
 
 function Blog() {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ function Blog() {
           This page is under construction. Check back soon for updates from Village12Farm!
         </Typography>
       </Box>
+      <BackToTop />
     </Container>
   );
 }

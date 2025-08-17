@@ -24,6 +24,7 @@ import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import { useCart } from '../components/CartContext';
 import { Link, useNavigate } from 'react-router-dom';
+import BackToTop from '../components/BackToTop';
 
 function Cart() {
   const { items, removeFromCart, updateQuantity } = useCart();
@@ -302,6 +303,7 @@ function Cart() {
           {snackbarMsg}
         </Alert>
       </Snackbar>
+      <BackToTop />
     </Container>
   );
 }

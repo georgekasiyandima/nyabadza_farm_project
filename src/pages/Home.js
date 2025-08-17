@@ -17,6 +17,7 @@ import SpaIcon from '@mui/icons-material/Spa';
 import AgricultureIcon from '@mui/icons-material/Agriculture';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
+import BackToTop from '../components/BackToTop';
 
 function Home() {
   const navigate = useNavigate();
@@ -48,16 +49,6 @@ function Home() {
   return (
     <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3e0e5 100%)', position: 'relative' }}>
       {/* Back to Home Button (not shown on Home) */}
-      {location.pathname !== '/' && (
-        <Button
-          variant="text"
-          color="primary"
-          onClick={() => navigate('/')}
-          sx={{ mb: 2, fontWeight: 600, textTransform: 'none', fontSize: 16 }}
-        >
-          ← Back to Home
-        </Button>
-      )}
       {/* Hero Section */}
       <Box
         sx={{
@@ -348,6 +339,7 @@ function Home() {
           <ArrowUpwardIcon />
         </Button>
       )}
+      <BackToTop colorOverride="primary" />
     </Box>
   );
 }

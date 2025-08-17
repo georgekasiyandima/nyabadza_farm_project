@@ -4,6 +4,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
+import PublicIcon from '@mui/icons-material/Public';
+import ChatIcon from '@mui/icons-material/Chat';
+import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom';
 
 function Footer() {
@@ -62,6 +65,9 @@ function Footer() {
             <MuiLink component={Link} to="/blog" underline="hover" color="inherit" sx={{ fontWeight: 500 }}>
               Blog
             </MuiLink>
+            <MuiLink component={Link} to="/policy" underline="hover" color="inherit" sx={{ fontWeight: 500 }}>
+              Policies
+            </MuiLink>
           </Stack>
           <Stack direction="row" spacing={1}>
             <IconButton href="https://facebook.com" target="_blank" rel="noopener" color="primary">
@@ -72,6 +78,15 @@ function Footer() {
             </IconButton>
             <IconButton href="https://instagram.com" target="_blank" rel="noopener" color="primary">
               <InstagramIcon />
+            </IconButton>
+            <IconButton href="https://village12farm.com" target="_blank" rel="noopener" color="primary">
+              <PublicIcon />
+            </IconButton>
+            <IconButton href="mailto:info@village12farm.com" color="primary">
+              <ChatIcon />
+            </IconButton>
+            <IconButton component={Link} to="/policy" color="primary">
+              <InfoIcon />
             </IconButton>
           </Stack>
         </Stack>

@@ -14,6 +14,13 @@ import FarmInfo from './pages/FarmInfo';
 import Checkout from './pages/Checkout';        // ✅ Added checkout
 import Confirmation from './pages/Confirmation'; // ✅ Added confirmation
 import Orders from './pages/Orders';
+import FarmProfile from './pages/FarmProfile';
+import PolicyDocs from './pages/PolicyDocs';
+import PolicyTerms from './pages/PolicyTerms';
+import PolicySustainability from './pages/PolicySustainability';
+import PolicyReturns from './pages/PolicyReturns';
+import PolicyPrivacy from './pages/PolicyPrivacy';
+import PolicyCommunity from './pages/PolicyCommunity';
 import { CartProvider } from './components/CartContext';
 import { WishlistProvider } from './components/WishlistContext';
 import { CompareProvider } from './components/CompareContext';
@@ -35,6 +42,13 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/farm-info" element={<FarmInfo />} />
+              <Route path="/farm-profile" element={<FarmProfile />} />
+              <Route path="/policy" element={<PolicyDocs />} />
+              <Route path="/policy/terms" element={<PolicyTerms />} />
+              <Route path="/policy/sustainability" element={<PolicySustainability />} />
+              <Route path="/policy/returns" element={<PolicyReturns />} />
+              <Route path="/policy/privacy" element={<PolicyPrivacy />} />
+              <Route path="/policy/community" element={<PolicyCommunity />} />
 
               {/* Product + Shopping Flow */}
               <Route path="/product/:id" element={<ProductDetails />} />
