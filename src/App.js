@@ -11,6 +11,7 @@ import Wishlist from './pages/Wishlist';
 import Compare from './pages/Compare';
 import ProductDetails from './pages/ProductDetails';
 import FarmInfo from './pages/FarmInfo';
+import WineTasting from './pages/WineTasting';
 import Checkout from './pages/Checkout';        // ✅ Added checkout
 import Confirmation from './pages/Confirmation'; // ✅ Added confirmation
 import Orders from './pages/Orders';
@@ -43,6 +44,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/farm-info" element={<FarmInfo />} />
               <Route path="/farm-profile" element={<FarmProfile />} />
+              <Route path="/wine-tasting" element={<WineTasting />} />
               <Route path="/policy" element={<PolicyDocs />} />
               <Route path="/policy/terms" element={<PolicyTerms />} />
               <Route path="/policy/sustainability" element={<PolicySustainability />} />

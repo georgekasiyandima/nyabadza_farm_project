@@ -138,30 +138,45 @@ function FarmInfo() {
   };
 
   return (
-    <Container sx={{ py: 5, position: 'relative' }}>
-      {/* Back to Home Button */}
-      <Button
-        variant="text"
-        color="primary"
-        onClick={() => navigate('/')}
-        sx={{ mb: 2, fontWeight: 600, textTransform: 'none', fontSize: 16 }}
-      >
-        ← Back to Home
-      </Button>
-      {/* Image Banner */}
-      <Box sx={{ width: '100%', mb: 4 }}>
-        <img
-          src={farmInfo.images[0]}
-          alt="Farm Banner"
-          style={{
-            width: '100%',
-            maxHeight: 340,
-            objectFit: 'cover',
-            borderRadius: 16,
-            boxShadow: '0 2px 16px #c3e0e5',
-          }}
-        />
-      </Box>
+    <Box sx={{ pt: '90px', minHeight: '100vh', background: 'linear-gradient(135deg, #fafafa 0%, #f5f7fa 100%)' }}>
+      <Container sx={{ py: 5, position: 'relative' }}>
+        {/* Back to Home Button */}
+        <Button
+          variant="text"
+          color="primary"
+          onClick={() => navigate('/')}
+          sx={{ mb: 2, fontWeight: 600, textTransform: 'none', fontSize: 16 }}
+        >
+          ← Back to Home
+        </Button>
+        
+        {/* Logo Section */}
+        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
+          <img
+            src="/V12F.png"
+            alt="Village12Farm Logo"
+            style={{
+              height: 120,
+              width: 'auto',
+              objectFit: 'contain',
+            }}
+          />
+        </Box>
+
+        {/* Image Banner */}
+        <Box sx={{ width: '100%', mb: 4 }}>
+          <img
+            src={farmInfo.images[0]}
+            alt="Farm Banner"
+            style={{
+              width: '100%',
+              maxHeight: 340,
+              objectFit: 'cover',
+              borderRadius: 16,
+              boxShadow: '0 2px 16px rgba(0, 0, 0, 0.1)',
+            }}
+          />
+        </Box>
 
       {/* Hero + Gallery (remove second hero image) */}
       <Box sx={{ mb: 4 }}>
@@ -454,7 +469,8 @@ function FarmInfo() {
         </Button>
       )}
       <BackToTop />
-    </Container>
+      </Container>
+    </Box>
   );
 }
 

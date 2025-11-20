@@ -47,7 +47,7 @@ function Home() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3e0e5 100%)', position: 'relative' }}>
+    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #fafafa 0%, #f5f7fa 100%)', position: 'relative', pt: '90px' }}>
       {/* Back to Home Button (not shown on Home) */}
       {/* Hero Section */}
       <Box
@@ -63,7 +63,7 @@ function Home() {
       >
         <img
           src="/Farm1.jpg"
-          alt="Nyabadza Farm Hero"
+          alt="Village12Farm Hero"
           style={{
             width: '100%',
             height: '100%',
@@ -142,7 +142,18 @@ function Home() {
                   color="primary"
                   size="large"
                   onClick={() => navigate('/shop')}
-                  sx={{ fontWeight: 700, px: 4, borderRadius: 2 }}
+                  sx={{ 
+                    fontWeight: 700, 
+                    px: 4, 
+                    py: 1.5,
+                    borderRadius: 2,
+                    boxShadow: 4,
+                    '&:hover': {
+                      boxShadow: 6,
+                      transform: 'translateY(-2px)',
+                    },
+                    transition: 'all 0.3s',
+                  }}
                 >
                   Shop Now
                 </Button>
@@ -150,9 +161,39 @@ function Home() {
                   variant="outlined"
                   size="large"
                   onClick={() => navigate('/farm-info')}
-                  sx={{ fontWeight: 700, px: 4, borderRadius: 2 }}
+                  sx={{ 
+                    fontWeight: 700, 
+                    px: 4, 
+                    py: 1.5,
+                    borderRadius: 2,
+                    borderWidth: 2,
+                    '&:hover': {
+                      borderWidth: 2,
+                      backgroundColor: 'rgba(45, 80, 22, 0.08)',
+                    },
+                  }}
                 >
                   About the Farm
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => navigate('/wine-tasting')}
+                  sx={{ 
+                    fontWeight: 700, 
+                    px: 4, 
+                    py: 1.5,
+                    borderRadius: 2,
+                    borderWidth: 2,
+                    borderColor: 'secondary.main',
+                    color: 'secondary.main',
+                    '&:hover': {
+                      borderWidth: 2,
+                      backgroundColor: 'rgba(139, 111, 71, 0.08)',
+                    },
+                  }}
+                >
+                  Wine Tasting
                 </Button>
               </Stack>
             </motion.div>
@@ -185,11 +226,12 @@ function Home() {
                 textAlign: 'center',
                 p: 3,
                 borderRadius: 3,
-                transition: 'transform 0.2s, box-shadow 0.2s',
+                backgroundColor: 'white',
+                transition: 'transform 0.3s, box-shadow 0.3s',
                 '&:hover': {
-                  transform: 'translateY(-8px) scale(1.04)',
-                  boxShadow: 6,
-                  background: 'rgba(195,224,229,0.12)',
+                  transform: 'translateY(-8px)',
+                  boxShadow: 8,
+                  backgroundColor: 'rgba(45, 80, 22, 0.02)',
                 },
               }}
             >
@@ -232,11 +274,12 @@ function Home() {
                 textAlign: 'center',
                 p: 3,
                 borderRadius: 3,
-                transition: 'transform 0.2s, box-shadow 0.2s',
+                backgroundColor: 'white',
+                transition: 'transform 0.3s, box-shadow 0.3s',
                 '&:hover': {
-                  transform: 'translateY(-8px) scale(1.04)',
-                  boxShadow: 6,
-                  background: 'rgba(195,224,229,0.12)',
+                  transform: 'translateY(-8px)',
+                  boxShadow: 8,
+                  backgroundColor: 'rgba(45, 80, 22, 0.02)',
                 },
               }}
             >
@@ -279,11 +322,12 @@ function Home() {
                 textAlign: 'center',
                 p: 3,
                 borderRadius: 3,
-                transition: 'transform 0.2s, box-shadow 0.2s',
+                backgroundColor: 'white',
+                transition: 'transform 0.3s, box-shadow 0.3s',
                 '&:hover': {
-                  transform: 'translateY(-8px) scale(1.04)',
-                  boxShadow: 6,
-                  background: 'rgba(195,224,229,0.12)',
+                  transform: 'translateY(-8px)',
+                  boxShadow: 8,
+                  backgroundColor: 'rgba(45, 80, 22, 0.02)',
                 },
               }}
             >
